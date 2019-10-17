@@ -12,7 +12,7 @@ import java.util.List;
 
 @Component
 @Configuration
-@EnableScheduling
+//@EnableScheduling
 public class ShowUsersTask {
 
     @Autowired

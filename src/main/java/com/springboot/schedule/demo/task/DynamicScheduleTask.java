@@ -1,7 +1,6 @@
 package com.springboot.schedule.demo.task;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import com.springboot.schedule.demo.dao.CronDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -22,16 +21,8 @@ import java.util.Date;
 @EnableScheduling
 public class DynamicScheduleTask implements SchedulingConfigurer {
 
-    @Mapper
-    public interface CronMapper {
-
-        @Select("select cron from cron limit 1")
-        public String getCron();
-    }
-
     @Autowired
-    @SuppressWarnings("all")
-    CronMapper cronMapper;
+    CronDao cronDao;
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
@@ -41,7 +32,7 @@ public class DynamicScheduleTask implements SchedulingConfigurer {
                 //2.设置执行周期(Trigger)
                 triggerContext -> {
                     //2.1 从数据库获取执行周期
-                    String cron = cronMapper.getCron();
+                    String cron = cronDao.getCron();
                     //2.2 合法性校验.
                     if (StringUtils.isEmpty(cron)){
                         System.out.println("定时参数为空。");

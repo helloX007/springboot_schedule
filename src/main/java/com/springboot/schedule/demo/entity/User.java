@@ -1,5 +1,6 @@
 package com.springboot.schedule.demo.entity;
 
+import com.springboot.schedule.demo.uitls.DateUtil;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class User {
-    private int id;
+    private Integer id;
     private String name;
     private String gender;
     private Date create_time;
@@ -20,8 +21,8 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
-                ", createTime=" + create_time +
-                ", updateTime=" + update_time +
+                ", createTime=" + DateUtil.getTime(create_time,"yyyy-MM-dd HH:mm:ss") +
+                ", updateTime=" + DateUtil.getTime(update_time,"yyyy-MM-dd HH:mm:ss") +
                 '}';
     }
 }
